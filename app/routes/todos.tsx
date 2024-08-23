@@ -1,9 +1,11 @@
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { Container, Stack, Text } from "@chakra-ui/react";
-import { Await, MetaFunction } from "@remix-run/react";
+import { defer } from "@remix-run/node";
+import { Await, MetaFunction, useLoaderData } from "@remix-run/react";
 import { Suspense } from "react";
 import { Navbar, NavbarSection } from "~/components/ui";
-import { TodoHeader } from "~/features/todos";
+import { TodoHeader, Todos } from "~/features/todos";
+import { supabaseClient } from "~/utils";
 
 export const meta: MetaFunction = () => {
   return [
@@ -12,7 +14,17 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default function Todos() {
+export function loader() {
+
+  const todos = supabaseClient.from('todos').select('*').then(data => data)
+
+  return defer({
+    todos
+  })
+}
+
+export default function Component() {
+  const promises = useLoaderData<typeof loader>()
   return (
     <>
       <Navbar top={0}>
@@ -34,7 +46,9 @@ export default function Todos() {
       <Container m="auto" p={3} overflow="none" marginBottom="80px" marginTop="60px">
         <TodoHeader />
         <Suspense fallback={<Text>Cargando...</Text>}>
-          {(result) => <Todos todos={[]} />}
+          <Await resolve={promises.todos}>
+            {(result) => <Todos todos={result?.data} />}
+          </Await>
         </Suspense>
       </Container >
     </>

@@ -7,6 +7,7 @@ type TodosProps = {
 
 export const Todos: React.FC<TodosProps> = (props) => {
   const { todos } = props
+  console.log(todos)
 
   return (
     <List >
