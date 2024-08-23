@@ -6,7 +6,24 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import "./tailwind.css";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { ONCheckbox, ONList } from "./theme";
+
+const theme = extendTheme({
+  config: {
+    initialColorMode: 'light',
+    useSystemColorMode: false,
+  },
+
+  styles: {
+    global: () => ({
+      body: {
+        bg: "green.600"
+      }
+    })
+  },
+  components: { List: ONList, Checkbox: ONCheckbox }
+})
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -28,7 +45,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Outlet />
     </ChakraProvider>
   );

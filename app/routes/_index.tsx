@@ -1,5 +1,5 @@
-import { Button } from "@chakra-ui/react";
 import type { MetaFunction } from "@remix-run/node";
+import { Navigate } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -9,9 +9,5 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  return (
-    <div className="font-sans p-4">
-      <Button>Welcome to Remix</Button>
-    </div>
-  );
+  return <Navigate to='/todos' />
 }
