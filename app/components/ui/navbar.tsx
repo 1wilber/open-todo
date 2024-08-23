@@ -9,7 +9,7 @@ export const Navbar: ChakraComponent<"div"> = (props) => {
       bottom={0}
       position="fixed"
       bgColor="green.600"
-      height="60px"
+      height="80px"
       width="100%"
       zIndex={100}
       display="flex"

@@ -5,7 +5,8 @@ const helpers = createMultiStyleConfigHelpers(['control', 'icon', 'container', '
 export const ONCheckbox = helpers.defineMultiStyleConfig({
   baseStyle: {
     control: {
-      borderRadius: "full"
+      borderRadius: "full",
+      borderColor: "gray.400"
     }
   }
 })
